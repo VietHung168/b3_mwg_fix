@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using System.Globalization
+@model List<bai3.Models.Product>;
+
+
+    @for(int i=0;i<@Model.Count;i++)
+    {
+        if (i == 10) break;
+<div class="others-toy-item">
+    <img src=@Model[i].img alt="" />
+    <h3>
+        @Model[i].Name
+
+    </h3>
+    <p class="others-toy-item-price">
+     
+        @(Model[i].Price*(100- @Model[i].Promotion)/100) đ
+    </p>
+    <span class="others-toy-item-old-price">
+        @Model[i].Price đ
+    </span>
+    <span class="others-toy-item-percent">
+        @Model[i].Promotion %
+    </span>
+
+    <div class="others-toy-item-buy">
+        <p class="txt">Chọn mua</p>
+    </div>
+</div>
+    }
+
+
+

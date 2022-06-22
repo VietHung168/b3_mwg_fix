@@ -1,0 +1,341 @@
+﻿@model bai3.Models.FakeData;
+
+@using System.Globalization
+
+@*@model bai3.Models.Product;*@
+@{ //int i = 0;
+    string ii = "";
+    //String i = (String)Url.ActionContext.RouteData.Values["id"];
+    int j = 0;
+    if ((String)Url.ActionContext.RouteData.Values["id"] == null)
+    {
+        ii = "0";
+    }
+    else
+    {
+        ii = (String)Url.ActionContext.RouteData.Values["id"];
+    }
+    j = Int32.Parse(ii);
+
+    CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+ //   string af = Model.Price.ToString("#,###", cul.NumberFormat);
+
+    //  decimal priceNew = Model.Price - (Model.Price * Model.Discount) / 100;
+
+    //   string aff = priceNew.ToString("#,###", cul.NumberFormat);
+}
+<section>
+    <div class="boxtop">
+
+        <p class="txt01">
+            @Model.listProduct.Count SẢN PHẨM TÃ CHO BÉ
+        </p>
+
+    </div>
+
+    <div class="box-filter">
+        <div class="warpper-filfer">
+            <div class="filter-item filter-total">
+                <div class="filter-item__title jsTitle">
+                    <i class="icon-filter"></i>
+                    Lọc
+                    <strong id="number">0</strong>
+                </div>
+
+                <div class="filter-show show-total ishow" id="wrapper">
+                    <div class="show-total__main">
+                        <div class="close-filtertotal">
+                            Đóng
+                            <i class="icon-closefilter"></i>
+                        </div>
+                        @*<div class="filter-selected">
+                                <div class="warpper-selected">
+                                    <span class="filter-selected-txt">Đã chọn:</span>
+                                    <div class="appendItem"></div>
+                                    <a href="javascript:void(0)" class="clear-selected-all">Xóa tất cả</a>
+                                </div>
+                            </div>*@
+
+
+                        <div class="show-total-item clearfix">
+                            <p class="show-total-txt" data-item="Hãng">Hãng:</p>
+                            <div class="filter-list filter-list--hang manu insight" data-sight="0">
+                                @{
+                                    for (int i = 0; i < @Model.ListLogo.Count; i++)
+                                    {
+                                        <a class="c-btnbox filter-manu " data-href="" data-id=@(i+1) data-name=@(i+1) data-type=@(i+1) data-typeFilter="Hang" data-indexFilter=@i>
+                                            <img src=@Model.ListLogo[i] width="67" height="33">
+                                        </a>
+                                    }
+                                }
+
+
+                            </div>
+                        </div>
+                        <div class="show-total-item">
+                            <p class="show-total-txt" data-item="Giá">Giá:</p>
+                            <div class="filter-list price insight" data-sight="0">
+                                @{
+                                    int id = 0;
+                                    foreach (var pr in Model.listPriceLimit)
+                                    {
+                                        <a data-href="" class="c-btnbox " data-id="" data-name=@pr.tostring() data-type="2" data-typeFilter="Gia" data-indexFilter=@(id++)>@pr.tostring() đ</a>
+
+                                    }
+                                }
+
+                            </div>
+                            <div class="price-slider text-active" data-activetxt="">
+                                <p class="range-toggle">
+                                    <a href="javascript:;" onclick="loadPriceRangeSlider(this)">
+                                        <i class="iconcate-range"></i>
+                                        <span class="down">Hoặc chọn mức giá phù hợp với bạn</span>
+                                    </a>
+                                </p>
+                                <div class="container">
+                                    <div class="row-input">
+                                        <form class="range-price">
+                                            <span class="range-left">
+                                                <input type="tel" maxlength="8" name="price-min-value" data-minvalue="0" value="0">
+                                                <label class="place-holder">.000đ</label>
+                                            </span>
+                                            <span class="range-right">
+                                                <input type="tel" maxlength="8" name="price-max-value" data-maxvalue="500000" value="500">
+                                                <label class="place-holder">.000đ</label>
+                                            </span>
+                                        </form>
+                                    </div>
+                                    <div id="slider-range-total" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                                        <div class="noUi-base">
+                                            <div class="noUi-origin noUi-connect" style="left: 0%;">
+                                                <div class="noUi-handle noUi-handle-lower"></div>
+                                            </div>
+                                            <div class="noUi-origin noUi-background" style="left: 100%;">
+                                                <div class="noUi-handle noUi-handle-upper">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="show-total-item " data-hiddenbyone="False">
+                            <p class="show-total-txt" data-item="Loại">Loại:</p>
+                            <div class="filter-list props insight" data-propid="30200" data-sight="0">
+
+                                @{
+                                    for (int i = 0; i < @Model.listType.Count; i++)
+                                    {
+                                        <a data-href="" class="c-btnbox " data-smooth="0" data-id=@(i+1)
+                                           data-name=@Model.listType[i] data-type="3" data-typeFilter="Loai" data-indexFilter=@i>@Model.listType[i]</a>
+
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="show-total-item " data-hiddenbyone="False">
+                            <p class="show-total-txt" data-item="Cân nặng">Cân nặng:</p>
+                            <div class="filter-list props insight" data-propid="31319" data-sight="0">
+                                @{
+                                    for (int i = 0; i < @Model.listWeight.Count; i++)
+                                    {
+                                        <a data-href="" class="c-btnbox " data-smooth="0" data-id=@(i+1)
+                                           data-name=@Model.listWeight[i].tostring() data-type="4" data-typeFilter="CanNang" data-indexFilter=@i>@Model.listWeight[i].tostring()</a>
+
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="show-total-item " data-hiddenbyone="False">
+                            <p class="show-total-txt" data-item="Size">Size:</p>
+                            <div class="filter-list props insight" data-propid="29979" data-sight="0">
+                                @{
+                                    for (int i = 0; i < @Model.ListSize.Count; i++)
+                                    {
+                                        <a data-href="" class="c-btnbox " data-smooth="0" data-id=@(i+1)
+                                           data-name=@Model.ListSize[i] data-type="5" data-typeFilter="Size" data-indexFilter=@i>@Model.ListSize[i]</a>
+
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-button-total">
+                        <a href="javascript:void(0)" class="btn-filter-close">Chọn lại</a>
+                        <a href="javascript:void(0)" class="btn-filter-readmore ">Xem (<b class="total-reloading">@Model.listProduct.Count</b> kết quả)</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="filter-item">
+                <div class="filter-item__title jsTitle">
+                    <span data-item="Hãng">Hãng</span>
+                </div>
+                <div class="filter-show">
+                    <div class="filter-list filter-list--column manu outsight" data-sight="1">
+                        @{
+                            for (int i = 0; i < @Model.ListLogo.Count; i++)
+                            {
+                                <a class="c-btnbox filter-manu " data-href="" data-id=@(i+1) data-name=@(i+1) data-type=@(i+1) data-typeFilter="Hang" data-indexFilter=@i>
+                                    <img src=@Model.ListLogo[i] width="67" height="33">
+                                </a>
+                            }
+                        }
+                    </div>
+                    <div class="filter-button">
+                        <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
+                        <a href="javascript:void(0)" class="btn-filter-readmore ">Xem (<b class="total-reloading">@Model.listProduct.Count</b> kết quả)</a>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-item">
+                <div class="filter-item__title jsTitle">
+                    <span data-item="Loại">Loại</span>
+                </div>
+                <div class="filter-show">
+                    <div class="filter-list filter-list--column manu outsight" data-sight="1">
+
+                        @{
+                            for (int i = 0; i < @Model.listType.Count; i++)
+                            {
+                                <a data-href="" class="c-btnbox " data-smooth="0" data-id=@(i+1)
+                                   data-name=@Model.listType[i] data-type="3" data-typeFilter="Loai" data-indexFilter=@i>@Model.listType[i]</a>
+
+                            }
+                        }
+                    </div>
+                    <div class="filter-button">
+                        <a href="javascript:void(0)" class="btn-filter-close">Bỏ chọn</a>
+                        <a href="javascript:void(0)" class="btn-filter-readmore ">Xem (<b class="total-reloading">@Model.listProduct.Count</b> kết quả)</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-item">
+                <div class="filter-item__title jsTitle">
+                    <span data-item="Giá">Giá </span>
+                </div>
+                <div class="filter-show" style="">
+                    <div class="filter-list props outsight" data-propid="30200" data-sight="1">
+                        @{
+                            int dem = 0;
+                            foreach (var pr in Model.listPriceLimit)
+                            {
+                                <a data-href="" class="c-btnbox " data-id="" data-name=@pr.tostring() data-type="2" data-typeFilter="Gia" data-indexFilter=@(dem++)>@pr.tostring() đ</a>
+
+                            }
+                        }
+                    </div>
+                    <div class="filter-button" style="display: block;">
+                        <a href="javascript:void(0)" class="btn-filter-close">Chọn lại</a>
+                        <a href="javascript:void(0)" class="btn-filter-readmore">Xem (<b class="total-reloading">@Model.listProduct.Count</b> kết quả)</a>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-item">
+                <div class="filter-item__title jsTitle">
+                    <span data-item="Cân nặng">Cân nặng</span>
+                </div>
+                <div class="filter-show" style="">
+                    <div class="filter-list props outsight" data-propid="31319" data-sight="1">
+                        @{
+                            for (int i = 0; i < @Model.listWeight.Count; i++)
+                            {
+                                <a data-href="" class="c-btnbox " data-smooth="0" data-id=@(i+1)
+                                   data-name=@Model.listWeight[i].tostring() data-type="4" data-typeFilter="CanNang" data-indexFilter=@i>@Model.listWeight[i].tostring()</a>
+
+                            }
+                        }
+                    </div>
+                    <div class="filter-button" style="display: block;">
+                        <a href="javascript:void(0)" class="btn-filter-close">Chọn lại</a>
+                        <a href="javascript:void(0)" class="btn-filter-readmore">Xem (<b class="total-reloading">@Model.listProduct.Count</b> kết quả)</a>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-item">
+                <div class="filter-item__title jsTitle">
+                    <span data-item="Size">Size</span>
+                </div>
+                <div class="filter-show " style="">
+                    <div class="filter-list props outsight" data-propid="29979" data-sight="1">
+                        @{
+                            for (int i = 0; i < @Model.ListSize.Count; i++)
+                            {
+                                <a data-href="" class="c-btnbox " data-smooth="0" data-id=@(i+1)
+                                   data-name=@Model.ListSize[i] data-type="5" data-typeFilter="Size" data-indexFilter=@i>@Model.ListSize[i]</a>
+
+                            }
+                        }
+                    </div>
+                    <div class="filter-button" style="display: block;">
+                        <a href="javascript:void(0)" class="btn-filter-close">Chọn lại</a>
+                        <a href="javascript:void(0)" class="btn-filter-readmore">Xem (<b class="total-reloading">@Model.listProduct.Count</b> kết quả)</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="box-quicklink">
+        <div class="boxleft">
+            <p class="box-quicklink__txt"> Phổ biến:</p>
+            @{
+                for (int i = 0; i < @Model.ListLogo.Count; i++)
+                {
+                    <a href="/" data-href="/" data-index=@(i+1) class="box-quicklink__item">
+                        <img src=@Model.ListLogo[i] width="70" height="20" class="no-text">
+                    </a>
+                }
+            }
+        </div>
+        <div class="sort-select">
+            <p class="click-sort">
+                Xếp theo:
+                <span class="sort-show">
+                    Nổi bật
+                </span>
+
+            </p>
+            <div class="sort-select-main">
+                <p class="sort active" data-id="1"><i></i>Nổi bật</p>
+                <p class="sort" data-id="2"><i></i>Bán chạy</p>
+                <p class="sort" data-id="3"><i></i>% Giảm Nhiều</p>
+                <p class="sort" data-id="4"><i></i>Gía thấp tới cao</p>
+                <p class="sort" data-id="5"><i></i>Gía cao tới thấp</p>
+            </div>
+        </div>
+    </div>
+    <div class="others-toy" id="toy-grid">
+        @{
+
+            @await Component.InvokeAsync("ToyBoxes", Model.listProduct)
+        }
+
+
+
+    </div>
+    <div id="paging">
+        <div class="pagbreak fInter" data-total-page="4">
+            <a href="javascript:;" onclick="gotoPageIndex(-1)" id="_pgPreviousPage" class="button-pagbreak button-pagbreak-prev disabled" data-page="0"></a>
+
+            <span onclick="PageIndex(this)" data-page="1" class="page-item active">1</span>
+            <span onclick="PageIndex(this)" data-page="2" class="page-item">2</span>
+            <span onclick="PageIndex(this)" data-page="3" class="page-item">3</span>
+            <span onclick="PageIndex(this)" data-page="4" class="page-item">4</span>
+            @*<a href="javascript:;" onclick="gotoPageIndex()" class="active" data-page="1">1</a>
+        <a href="javascript:;" onclick="gotoPageIndex()" class="page-item" data-page="2">2</a>
+        <a href="javascript:;" onclick="gotoPageIndex()" class="page-item" data-page="3">3</a>
+        <a href="javascript:;" onclick="gotoPageIndex()" class="page-item" data-page="4">4</a>*@
+
+            <a href="javascript:;" class="button-pagbreak button-pagbreak-next " id="_pgNextPage" onclick="gotoPageIndex(1)" data-page="2"></a>
+        </div>
+    </div>
+
+</section>
+
+
